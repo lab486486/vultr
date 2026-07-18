@@ -2,10 +2,9 @@ name = "vultr-seoul"
 compatibility_date = "2026-07-15"
 pages_build_output_dir = "dist"
 
+[vars]
+R2_PUBLIC_BASE_URL = "https://pub-9b066cc3e4094ff8946656c10cbb9f3d.r2.dev"
+
 [[r2_buckets]]
 binding = "MEDIA_BUCKET"
 bucket_name = "vultr-media"
-
-[vars]
-# Cloudflare R2 → Settings → Public access 의 r2.dev URL로 교체
-R2_PUBLIC_BASE_URL = "https://pub-9b066cc3e4094ff8946656c10cbb9f3d.r2.dev"
