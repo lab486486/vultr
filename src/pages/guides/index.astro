@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublishedPosts, postSlug } from '../../lib/posts';
+import { media } from '../../site.config';
+
+const posts = await getPublishedPosts();
+---
+
+<BaseLayout title="가이드" description="호스팅·워드프레스·운영 이슈 가이드 목록.">
+  <section class="section container">
+    <h1>가이드</h1>
+    <p class="section-lead">비교, 시작, 운영 문제 해결 글을 모읍니다.</p>
+    <div class="post-list">
+      {
+        posts.map((post) => (
+          <a class="post-card" href={`/guides/${postSlug(post)}/`}>
+            <time datetime={post.data.date.toISOString()}>
+              {post.data.date.toLocaleDateString('ko-KR')}
+            </time>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.description}</p>
+            {post.data.cover_image && (
+              <img
+                src={media(post.data.cover_image)}
+                alt=""
+                width="640"
+                height="360"
+                loading="lazy"
+                style="margin-top:0.75rem;border-radius:0.5rem;aspect-ratio:16/9;object-fit:cover;width:100%;"
+              />
+            )}
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,129 @@
+# Decap CMS — vultr.seoul.kr
+# GitHub OAuth: Cloudflare Pages secrets GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET
+
+backend:
+  name: github
+  repo: lab486486/vultr
+  branch: main
+  base_url: https://vultr.seoul.kr
+  auth_endpoint: api/oauth/auth
+  auth_scope: repo
+
+media_library:
+  name: r2
+  config:
+    upload_url: /api/upload
+    # wrangler.toml / Pages vars 의 R2_PUBLIC_BASE_URL 과 동일하게 맞추세요
+    public_base_url: https://pub-9b066cc3e4094ff8946656c10cbb9f3d.r2.dev
+
+local_backend: false
+
+media_folder: ""
+public_folder: ""
+
+slug:
+  encoding: unicode
+  clean_accents: true
+
+x-blog-fields: &blog_fields
+  - { label: 제목, name: title, widget: string }
+  - label: 퍼머링크 (슬러그)
+    name: slug
+    widget: string
+    required: true
+    hint: "글 URL입니다. 예: cheap-hosting-first → /guides/cheap-hosting-first/"
+  - { label: 날짜, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false }
+  - { label: 설명, name: description, widget: text }
+  - { label: 태그, name: tags, widget: list, default: ["호스팅"], required: false }
+  - { label: 커버 이미지, name: cover_image, widget: image, required: false }
+  - label: 본문
+    name: body
+    widget: markdown
+
+collections:
+  - name: site
+    label: 사이트 설정
+    files:
+      - name: general
+        label: 사이트 상세 설정하기
+        file: src/data/site.json
+        format: json
+        fields:
+          - label: 사이트 제목
+            name: title
+            widget: string
+          - label: 사이트 주소
+            name: site_url
+            widget: string
+          - label: 카피라이트 이름
+            name: copyright_name
+            widget: string
+          - label: 케미클라우드 어필 링크
+            name: chemicloud_url
+            widget: string
+            required: false
+            hint: "시작하기·CTA 버튼에 사용됩니다."
+
+      - name: google_search_console
+        label: 구글 서치콘솔
+        file: src/data/site/google-search-console.json
+        format: json
+        fields:
+          - label: 소유권 확인 코드
+            name: code
+            widget: text
+            required: false
+
+      - name: analytics
+        label: 애널리틱스
+        file: src/data/site/analytics.json
+        format: json
+        fields:
+          - label: 추적 코드
+            name: code
+            widget: text
+            required: false
+
+  - name: adsense
+    label: 애드센스 설정
+    files:
+      - name: head_script
+        label: 애드센스 코드 입력
+        file: src/data/adsense/head-script.json
+        format: json
+        fields:
+          - label: 기본 script 코드
+            name: script
+            widget: text
+            required: false
+            hint: "AdSense → 코드 가져오기 → 사이트 전체 태그의 script를 붙여넣으세요."
+
+      - name: ads_txt
+        label: ads.txt 입력
+        file: src/data/adsense/ads-txt.json
+        format: json
+        fields:
+          - label: ads.txt 한 줄
+            name: content
+            widget: string
+            required: false
+
+  - name: blog
+    label: 기존 글 목록
+    label_singular: 글
+    folder: src/content/blog
+    create: false
+    slug: "{{fields.slug}}"
+    extension: md
+    format: frontmatter
+    fields: *blog_fields
+
+  - name: blog_new
+    label: 새 글쓰기
+    label_singular: 글
+    folder: src/content/blog
+    create: true
+    slug: "{{fields.slug}}"
+    extension: md
+    format: frontmatter
+    fields: *blog_fields

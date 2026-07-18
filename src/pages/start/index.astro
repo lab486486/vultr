@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../site.config';
+
+const chemicloudUrl =
+  site.chemicloudUrl ||
+  import.meta.env.PUBLIC_CHEMICLOUD_URL ||
+  'https://example.com/chemicloud-affiliate';
+---
+
+<BaseLayout
+  title="시작하기"
+  description="워드프레스 블로그를 월 4,900원대 공유호스팅으로 시작하는 추천 경로."
+>
+  <section class="section container prose">
+    <h1>추천 시작점</h1>
+    <p>
+      유튜브에서도 같은 이야기를 합니다. 처음부터 클라우드웨이즈 요금을 낼 필요는 없습니다.
+      도메인 연결·워드프레스 설치·기본 속도만 되면 충분합니다.
+    </p>
+
+    <h2>1. 공유호스팅으로 열기</h2>
+    <p>
+      케미클라우드처럼 월 수천 원대 플랜으로 워드프레스를 올립니다. SSL, 이메일, 기본 패널이 있는
+      환경이면 초반 운영에 충분합니다.
+    </p>
+    <p>
+      <a class="btn btn-primary" href={chemicloudUrl} rel="sponsored noopener noreferrer" target="_blank">
+        케미클라우드로 시작
+      </a>
+    </p>
+
+    <h2>2. 글·영상과 같은 주제로 쌓기</h2>
+    <p>
+      호스팅 비교, 설치, 애드센스, 이전(마이그레이션)처럼 검색 의도가 분명한 글을 올립니다.
+      주식·잡다한 주제는 이 도메인에서 빼는 편이 좋습니다.
+    </p>
+
+    <h2>3. 트래픽이 커지면 그때 업그레이드</h2>
+    <p>
+      수익이 나고 서버 이슈가 비용이 될 때 매니지드나 VPS를 보면 됩니다. 순서가 바뀌면 월 고정비만
+      커집니다.
+    </p>
+  </section>
+</BaseLayout>

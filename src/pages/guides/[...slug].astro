@@ -1,0 +1,42 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AffiliateCta from '../../components/AffiliateCta.astro';
+import { getPublishedPosts, postSlug } from '../../lib/posts';
+import { media } from '../../site.config';
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    params: { slug: postSlug(post) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const cover = post.data.cover_image ? media(post.data.cover_image) : undefined;
+---
+
+<BaseLayout title={post.data.title} description={post.data.description} ogImage={cover}>
+  <article class="section container prose">
+    <time datetime={post.data.date.toISOString()}>
+      {post.data.date.toLocaleDateString('ko-KR')}
+    </time>
+    <h1>{post.data.title}</h1>
+    <p>{post.data.description}</p>
+    {
+      cover && (
+        <img
+          src={cover}
+          alt=""
+          width="960"
+          height="540"
+          style="border-radius:0.75rem;aspect-ratio:16/9;object-fit:cover;width:100%;margin:1rem 0 1.5rem;"
+        />
+      )
+    }
+    <Content />
+  </article>
+  <AffiliateCta />
+</BaseLayout>

@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AffiliateCta from '../../components/AffiliateCta.astro';
+---
+
+<BaseLayout
+  title="호스팅 비교"
+  description="케미클라우드, 클라우드웨이즈, Vultr VPS를 가격·난이도·용도로 비교합니다."
+>
+  <section class="section container">
+    <h1>호스팅 비교</h1>
+    <p class="section-lead">
+      “어떤 게 최고”가 아니라, 블로그 초반 / 트래픽 성장 / 서버 직접 운영 단계에 맞게 고르는 표입니다.
+    </p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>항목</th>
+          <th>케미클라우드</th>
+          <th>클라우드웨이즈</th>
+          <th>Vultr (VPS)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>월 요금 체감</th>
+          <td class="highlight">약 4,900원대~</td>
+          <td>약 5만원대~</td>
+          <td>$5~ (직접 관리)</td>
+        </tr>
+        <tr>
+          <th>난이도</th>
+          <td class="highlight">낮음</td>
+          <td>낮음~중간</td>
+          <td>높음</td>
+        </tr>
+        <tr>
+          <th>추천 단계</th>
+          <td class="highlight">블로그·애드센스 시작</td>
+          <td>수익 사이트 스케일업</td>
+          <td>개발·커스텀 서버</td>
+        </tr>
+        <tr>
+          <th>워드프레스</th>
+          <td>원클릭/지원 중심</td>
+          <td>매니지드에 강함</td>
+          <td>직접 설치·보안·백업</td>
+        </tr>
+        <tr>
+          <th>이런 분께</th>
+          <td>비용 최소화하며 시작</td>
+          <td>관리 편의 + 성능</td>
+          <td>루트 권한·학습 목적</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <AffiliateCta />
+
+  <section class="section container prose">
+    <h2>한 줄 기준</h2>
+    <ul>
+      <li>콘텐츠·애드센스·어필리에이트를 막 시작 → 공유호스팅</li>
+      <li>매출이 나고 다운타임 비용이 커짐 → 매니지드 검토</li>
+      <li>서버를 배우고 직접 붙이고 싶음 → VPS</li>
+    </ul>
+    <p>
+      Vultr 서울 리전은 “국내에 가까운 VPS” 선택지로 남아 있지만, 지금 V-press의 메인 추천은
+      초보 단계의 저비용 공유호스팅입니다.
+    </p>
+  </section>
+</BaseLayout>

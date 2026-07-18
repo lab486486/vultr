@@ -1,0 +1,100 @@
+---
+import '../styles/global.css';
+import { site, mediaOrigin } from '../site.config';
+import adsenseHead from '../data/adsense/head-script.json';
+import gsc from '../data/site/google-search-console.json';
+import analytics from '../data/site/analytics.json';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = site.description,
+  canonical,
+  ogImage,
+} = Astro.props;
+
+const pageUrl = canonical || new URL(Astro.url.pathname, site.baseUrl).toString();
+const fullTitle = title === site.name || title === site.title ? site.title : `${title} | ${site.title}`;
+const pathname = Astro.url.pathname;
+const r2Origin = mediaOrigin();
+---
+
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={pageUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:locale" content="ko_KR" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    {r2Origin && <link rel="preconnect" href={r2Origin} crossorigin />}
+    {gsc.code && <Fragment set:html={gsc.code.includes('<meta') ? gsc.code : `<meta name="google-site-verification" content="${gsc.code}" />`} />}
+    {adsenseHead.script && <Fragment set:html={adsenseHead.script} />}
+    {analytics.code && <Fragment set:html={analytics.code} />}
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="/">V-<span>press</span></a>
+        <nav aria-label="주요 메뉴">
+          <ul class="nav-links">
+            <li>
+              <a href="/compare/" aria-current={pathname.startsWith('/compare') ? 'page' : undefined}
+                >호스팅 비교</a
+              >
+            </li>
+            <li>
+              <a href="/guides/" aria-current={pathname.startsWith('/guides') ? 'page' : undefined}
+                >가이드</a
+              >
+            </li>
+            <li>
+              <a href="/start/" aria-current={pathname.startsWith('/start') ? 'page' : undefined}
+                >시작하기</a
+              >
+            </li>
+            <li>
+              <a href="/about/" aria-current={pathname.startsWith('/about') ? 'page' : undefined}
+                >소개</a
+              >
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          © {new Date().getFullYear()}
+          <a href={site.baseUrl}>{site.copyrightName}</a>
+          · vultr.seoul.kr
+        </p>
+        <p class="disclaimer">
+          이 사이트는 Vultr, Chemicloud, Cloudways 등 언급된 업체의 공식 사이트가 아닙니다.
+          상표는 각 소유자에게 있으며, 리뷰·비교 목적의 정보 제공과 어필리에이트 링크가 포함될 수
+          있습니다.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
