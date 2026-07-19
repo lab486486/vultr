@@ -11,7 +11,10 @@ export const site = {
     '처음부터 비싼 호스팅이 필요하지 않습니다. 워드프레스·공유호스팅·VPS를 비교하고 시작하는 V-press.',
   baseUrl: siteData.site_url || 'https://vultr.seoul.kr',
   copyrightName: siteData.copyright_name || 'V-press',
-  chemicloudUrl: siteData.chemicloud_url || '',
+  chemicloudUrl:
+    siteData.chemicloud_url ||
+    'https://chemicloud.com/wordpress-hosting#a_aid=6818d638aa861&chan=code3',
+  cloudwaysUrl: siteData.cloudways_url || 'https://www.cloudways.com/en/?id=1234986',
   lang: 'ko',
   mediaBaseUrl: 'https://pub-9b066cc3e4094ff8946656c10cbb9f3d.r2.dev',
 } as const;

@@ -63,6 +63,11 @@ collections:
             widget: string
             required: false
             hint: "시작하기·CTA 버튼에 사용됩니다."
+          - label: 클라우드웨이즈 어필 링크
+            name: cloudways_url
+            widget: string
+            required: false
+            hint: "비교표·업그레이드 안내에 사용됩니다."
 
       - name: google_search_console
         label: 구글 서치콘솔

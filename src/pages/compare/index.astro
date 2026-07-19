@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AffiliateCta from '../../components/AffiliateCta.astro';
+import { site } from '../../site.config';
 ---
 
 <BaseLayout
@@ -53,6 +54,20 @@ import AffiliateCta from '../../components/AffiliateCta.astro';
           <td>관리 편의 + 성능</td>
           <td>루트 권한·학습 목적</td>
         </tr>
+        <tr>
+          <th>링크</th>
+          <td>
+            <a href={site.chemicloudUrl} rel="sponsored noopener noreferrer" target="_blank"
+              >케미클라우드</a
+            >
+          </td>
+          <td>
+            <a href={site.cloudwaysUrl} rel="sponsored noopener noreferrer" target="_blank"
+              >클라우드웨이즈</a
+            >
+          </td>
+          <td>공식 사이트에서 직접 가입</td>
+        </tr>
       </tbody>
     </table>
   </section>
@@ -68,7 +83,9 @@ import AffiliateCta from '../../components/AffiliateCta.astro';
     </ul>
     <p>
       Vultr 서울 리전은 “국내에 가까운 VPS” 선택지로 남아 있지만, 지금 V-press의 메인 추천은
-      초보 단계의 저비용 공유호스팅입니다.
+      초보 단계의 저비용 공유호스팅입니다. 매니지드가 필요해지면
+      <a href={site.cloudwaysUrl} rel="sponsored noopener noreferrer" target="_blank">클라우드웨이즈</a>
+      를 보면 됩니다.
     </p>
   </section>
 </BaseLayout>

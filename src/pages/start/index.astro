@@ -2,10 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { site } from '../../site.config';
 
-const chemicloudUrl =
-  site.chemicloudUrl ||
-  import.meta.env.PUBLIC_CHEMICLOUD_URL ||
-  'https://example.com/chemicloud-affiliate';
+const chemicloudUrl = site.chemicloudUrl;
 ---
 
 <BaseLayout
@@ -39,7 +36,9 @@ const chemicloudUrl =
     <h2>3. 트래픽이 커지면 그때 업그레이드</h2>
     <p>
       수익이 나고 서버 이슈가 비용이 될 때 매니지드나 VPS를 보면 됩니다. 순서가 바뀌면 월 고정비만
-      커집니다.
+      커집니다. 그때는
+      <a href={site.cloudwaysUrl} rel="sponsored noopener noreferrer" target="_blank">클라우드웨이즈</a>
+      같은 매니지드 옵션을 검토하면 됩니다.
     </p>
   </section>
 </BaseLayout>
