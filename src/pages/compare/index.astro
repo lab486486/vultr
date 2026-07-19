@@ -2,6 +2,59 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import AffiliateCta from '../../components/AffiliateCta.astro';
 import { site } from '../../site.config';
+
+const hosts = [
+  {
+    name: '케미클라우드',
+    short: '케미',
+    href: site.chemicloudUrl,
+    linkLabel: '가입하기',
+    values: {
+      price: '약 4,900원대~',
+      difficulty: '낮음',
+      stage: '블로그·애드센스 시작',
+      wp: '원클릭/지원 중심',
+      for: '비용 최소화하며 시작',
+    },
+    highlight: true,
+  },
+  {
+    name: '클라우드웨이즈',
+    short: 'CW',
+    href: site.cloudwaysUrl,
+    linkLabel: '살펴보기',
+    values: {
+      price: '약 5만원대~',
+      difficulty: '낮음~중간',
+      stage: '수익 사이트 스케일업',
+      wp: '매니지드에 강함',
+      for: '관리 편의 + 성능',
+    },
+    highlight: false,
+  },
+  {
+    name: 'Vultr (VPS)',
+    short: 'Vultr',
+    href: null as string | null,
+    linkLabel: '공식에서 직접 가입',
+    values: {
+      price: '$5~ (직접 관리)',
+      difficulty: '높음',
+      stage: '개발·커스텀 서버',
+      wp: '직접 설치·보안·백업',
+      for: '루트 권한·학습 목적',
+    },
+    highlight: false,
+  },
+];
+
+const rows = [
+  { key: 'price', label: '월 요금 체감' },
+  { key: 'difficulty', label: '난이도' },
+  { key: 'stage', label: '추천 단계' },
+  { key: 'wp', label: '워드프레스' },
+  { key: 'for', label: '이런 분께' },
+] as const;
 ---
 
 <BaseLayout
@@ -14,62 +67,85 @@ import { site } from '../../site.config';
       “어떤 게 최고”가 아니라, 블로그 초반 / 트래픽 성장 / 서버 직접 운영 단계에 맞게 고르는 표입니다.
     </p>
 
-    <table class="compare-table">
-      <thead>
-        <tr>
-          <th>항목</th>
-          <th>케미클라우드</th>
-          <th>클라우드웨이즈</th>
-          <th>Vultr (VPS)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>월 요금 체감</th>
-          <td class="highlight">약 4,900원대~</td>
-          <td>약 5만원대~</td>
-          <td>$5~ (직접 관리)</td>
-        </tr>
-        <tr>
-          <th>난이도</th>
-          <td class="highlight">낮음</td>
-          <td>낮음~중간</td>
-          <td>높음</td>
-        </tr>
-        <tr>
-          <th>추천 단계</th>
-          <td class="highlight">블로그·애드센스 시작</td>
-          <td>수익 사이트 스케일업</td>
-          <td>개발·커스텀 서버</td>
-        </tr>
-        <tr>
-          <th>워드프레스</th>
-          <td>원클릭/지원 중심</td>
-          <td>매니지드에 강함</td>
-          <td>직접 설치·보안·백업</td>
-        </tr>
-        <tr>
-          <th>이런 분께</th>
-          <td>비용 최소화하며 시작</td>
-          <td>관리 편의 + 성능</td>
-          <td>루트 권한·학습 목적</td>
-        </tr>
-        <tr>
-          <th>링크</th>
-          <td>
-            <a href={site.chemicloudUrl} rel="sponsored noopener noreferrer" target="_blank"
-              >케미클라우드</a
-            >
-          </td>
-          <td>
-            <a href={site.cloudwaysUrl} rel="sponsored noopener noreferrer" target="_blank"
-              >클라우드웨이즈</a
-            >
-          </td>
-          <td>공식 사이트에서 직접 가입</td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Mobile: stacked metric rows (all 3 hosts visible) -->
+    <div class="compare-mobile" aria-label="호스팅 비교 카드">
+      {
+        rows.map((row) => (
+          <article class="compare-metric">
+            <h3>{row.label}</h3>
+            <ul>
+              {hosts.map((host) => (
+                <li class:list={{ highlight: host.highlight }}>
+                  <span class="host-name">{host.short}</span>
+                  <span class="host-value">{host.values[row.key]}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
+      <article class="compare-metric">
+        <h3>링크</h3>
+        <ul>
+          {
+            hosts.map((host) => (
+              <li class:list={{ highlight: host.highlight }}>
+                <span class="host-name">{host.short}</span>
+                <span class="host-value">
+                  {host.href ? (
+                    <a href={host.href} rel="sponsored noopener noreferrer" target="_blank">
+                      {host.linkLabel}
+                    </a>
+                  ) : (
+                    host.linkLabel
+                  )}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </article>
+    </div>
+
+    <!-- Desktop / tablet: wide centered table -->
+    <div class="compare-desktop">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>항목</th>
+            {hosts.map((host) => <th>{host.name}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {
+            rows.map((row) => (
+              <tr>
+                <th>{row.label}</th>
+                {hosts.map((host) => (
+                  <td class:list={{ highlight: host.highlight }}>{host.values[row.key]}</td>
+                ))}
+              </tr>
+            ))
+          }
+          <tr>
+            <th>링크</th>
+            {
+              hosts.map((host) => (
+                <td>
+                  {host.href ? (
+                    <a href={host.href} rel="sponsored noopener noreferrer" target="_blank">
+                      {host.name}
+                    </a>
+                  ) : (
+                    host.linkLabel
+                  )}
+                </td>
+              ))
+            }
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <AffiliateCta />

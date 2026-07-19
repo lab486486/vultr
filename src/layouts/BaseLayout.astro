@@ -23,6 +23,13 @@ const pageUrl = canonical || new URL(Astro.url.pathname, site.baseUrl).toString(
 const fullTitle = title === site.name || title === site.title ? site.title : `${title} | ${site.title}`;
 const pathname = Astro.url.pathname;
 const r2Origin = mediaOrigin();
+
+const navItems = [
+  { href: '/compare/', label: '호스팅 비교', active: pathname.startsWith('/compare') },
+  { href: '/guides/', label: '가이드', active: pathname.startsWith('/guides') },
+  { href: '/start/', label: '시작하기', active: pathname.startsWith('/start') },
+  { href: '/about/', label: '소개', active: pathname.startsWith('/about') },
+];
 ---
 
 <!doctype html>
@@ -50,29 +57,31 @@ const r2Origin = mediaOrigin();
   <body>
     <header class="site-header">
       <div class="container nav">
-        <a class="brand" href="/">V-<span>press</span></a>
-        <nav aria-label="주요 메뉴">
+        <a class="brand" href="/">V&#8209;<span>press</span></a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-menu"
+          aria-label="메뉴 열기"
+        >
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+          <span class="nav-toggle-bar" aria-hidden="true"></span>
+        </button>
+
+        <nav class="site-nav" id="site-menu" aria-label="주요 메뉴" hidden>
           <ul class="nav-links">
-            <li>
-              <a href="/compare/" aria-current={pathname.startsWith('/compare') ? 'page' : undefined}
-                >호스팅 비교</a
-              >
-            </li>
-            <li>
-              <a href="/guides/" aria-current={pathname.startsWith('/guides') ? 'page' : undefined}
-                >가이드</a
-              >
-            </li>
-            <li>
-              <a href="/start/" aria-current={pathname.startsWith('/start') ? 'page' : undefined}
-                >시작하기</a
-              >
-            </li>
-            <li>
-              <a href="/about/" aria-current={pathname.startsWith('/about') ? 'page' : undefined}
-                >소개</a
-              >
-            </li>
+            {
+              navItems.map((item) => (
+                <li>
+                  <a href={item.href} aria-current={item.active ? 'page' : undefined}>
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
           </ul>
         </nav>
       </div>
@@ -96,5 +105,31 @@ const r2Origin = mediaOrigin();
         </p>
       </div>
     </footer>
+
+    <script>
+      const toggle = document.querySelector('.nav-toggle');
+      const menu = document.querySelector('#site-menu');
+      if (toggle instanceof HTMLButtonElement && menu instanceof HTMLElement) {
+        const setOpen = (open) => {
+          toggle.setAttribute('aria-expanded', String(open));
+          toggle.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+          toggle.classList.toggle('is-open', open);
+          menu.hidden = !open;
+          document.body.classList.toggle('nav-open', open);
+        };
+
+        toggle.addEventListener('click', () => {
+          setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+        });
+
+        menu.querySelectorAll('a').forEach((link) => {
+          link.addEventListener('click', () => setOpen(false));
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') setOpen(false);
+        });
+      }
+    </script>
   </body>
 </html>
