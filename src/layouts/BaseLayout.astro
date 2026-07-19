@@ -28,7 +28,6 @@ const navItems = [
   { href: '/compare/', label: '호스팅 비교', active: pathname.startsWith('/compare') },
   { href: '/guides/', label: '가이드', active: pathname.startsWith('/guides') },
   { href: '/start/', label: '시작하기', active: pathname.startsWith('/start') },
-  { href: '/about/', label: '소개', active: pathname.startsWith('/about') },
 ];
 ---
 
@@ -96,7 +95,7 @@ const navItems = [
       <div class="container">
         <p>
           © {new Date().getFullYear()}
-          <a href={site.baseUrl}>{site.copyrightName}</a>
+          <a href="/about/">{site.copyrightName}</a>
           · vultr.seoul.kr
         </p>
         <p class="disclaimer">
