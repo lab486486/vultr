@@ -20,7 +20,7 @@ const hosts = [
   },
   {
     name: '클라우드웨이즈',
-    short: 'CW',
+    short: '클웨',
     href: site.cloudwaysUrl,
     linkLabel: '살펴보기',
     values: {
@@ -34,7 +34,7 @@ const hosts = [
   },
   {
     name: 'Vultr (VPS)',
-    short: 'Vultr',
+    short: '벌처',
     href: null as string | null,
     linkLabel: '공식에서 직접 가입',
     values: {
@@ -113,7 +113,7 @@ const rows = [
         <thead>
           <tr>
             <th>항목</th>
-            {hosts.map((host) => <th>{host.name}</th>)}
+            {hosts.map((host) => <th>{host.short}</th>)}
           </tr>
         </thead>
         <tbody>
@@ -134,7 +134,7 @@ const rows = [
                 <td>
                   {host.href ? (
                     <a href={host.href} rel="sponsored noopener noreferrer" target="_blank">
-                      {host.name}
+                      {host.short}
                     </a>
                   ) : (
                     host.linkLabel
