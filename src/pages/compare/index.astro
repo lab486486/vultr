@@ -8,7 +8,7 @@ const hosts = [
     name: '케미클라우드',
     short: '케미',
     href: site.chemicloudUrl,
-    linkLabel: '가입하기',
+    linkLabel: '바로가기',
     values: {
       price: '약 4,900원대~',
       difficulty: '낮음',
@@ -22,7 +22,7 @@ const hosts = [
     name: '클라우드웨이즈',
     short: '클웨',
     href: site.cloudwaysUrl,
-    linkLabel: '살펴보기',
+    linkLabel: '바로가기',
     values: {
       price: '약 5만원대~',
       difficulty: '낮음~중간',
@@ -134,7 +134,7 @@ const rows = [
                 <td>
                   {host.href ? (
                     <a href={host.href} rel="sponsored noopener noreferrer" target="_blank">
-                      {host.short}
+                      {host.linkLabel}
                     </a>
                   ) : (
                     host.linkLabel
