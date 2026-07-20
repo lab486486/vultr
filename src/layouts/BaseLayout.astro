@@ -49,7 +49,25 @@ const navItems = [
     {ogImage && <meta property="og:image" content={ogImage} />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
-    {r2Origin && <link rel="preconnect" href={r2Origin} crossorigin />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&family=Syne:wght@700;800&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&family=Syne:wght@700;800&display=swap"
+      />
+    </noscript>
+    {
+      ogImage && r2Origin && ogImage.startsWith(r2Origin) && (
+        <link rel="preconnect" href={r2Origin} crossorigin />
+      )
+    }
     {gsc.code && <Fragment set:html={gsc.code.includes('<meta') ? gsc.code : `<meta name="google-site-verification" content="${gsc.code}" />`} />}
     {adsenseHead.script && <Fragment set:html={adsenseHead.script} />}
     {analytics.code && <Fragment set:html={analytics.code} />}

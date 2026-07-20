@@ -1,0 +1,16 @@
+# V-press
+
+> 워드프레스·공유호스팅·VPS를 비교해, 수익화 블로그 초반에 맞는 가성비 호스팅을 안내하는 사이트입니다.
+
+## 주요 페이지
+
+- [홈](https://vultr.seoul.kr/): 사이트 소개와 최근 가이드
+- [호스팅 비교](https://vultr.seoul.kr/compare/): 케미클라우드, 클라우드웨이즈, Vultr 비교
+- [수익화 단계](https://vultr.seoul.kr/start/): 공유호스팅으로 시작하는 단계별 방법
+- [가이드](https://vultr.seoul.kr/guides/): 호스팅·워드프레스 실전 글 목록
+- [소개](https://vultr.seoul.kr/about/): V-press와 어필리에이트 고지
+
+## 피드
+
+- [RSS](https://vultr.seoul.kr/rss.xml): 최신 가이드 피드
+- [Sitemap](https://vultr.seoul.kr/sitemap.xml): 검색엔진용 사이트맵

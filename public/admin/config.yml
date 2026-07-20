@@ -5,8 +5,7 @@ backend:
   name: github
   repo: lab486486/vultr
   branch: main
-  # DNS를 Pages로 붙이기 전엔 pages.dev 사용. 전환 후 https://vultr.seoul.kr 로 변경
-  base_url: https://vultr-seoul.pages.dev
+  base_url: https://vultr.seoul.kr
   auth_endpoint: api/oauth/auth
   auth_scope: repo
 
