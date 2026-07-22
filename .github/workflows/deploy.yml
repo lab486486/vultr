@@ -1,13 +1,12 @@
-# Optional manual deploy backup.
-# Normal deploys: GitHub push → Cloudflare Pages (project: vultr) auto-build.
-
-name: Manual Pages deploy
+name: Deploy to Cloudflare Pages
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 concurrency:
-  group: pages-deploy-manual
+  group: pages-deploy
   cancel-in-progress: true
 
 jobs:
@@ -16,15 +15,19 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: npm
+
       - run: npm ci
+
       - run: npm run build
-      - name: Deploy
+
+      - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=vultr --branch=main
+          command: pages deploy dist --project-name=vultr-seoul --branch=main
