@@ -22,38 +22,24 @@ npm run preview
 
 관리자: `https://vultr.seoul.kr/admin/`
 
-1. GitHub 저장소 `lab486486/vultr`에 push
-2. [GitHub OAuth App](https://github.com/settings/developers) 생성
+글을 쓰거나 ads.txt·애드센스 설정을 저장하면 **GitHub `main`에 커밋**되고, Cloudflare Pages가 **자동으로 빌드·배포**합니다. 별도 수동 배포는 필요 없습니다.
+
+1. [GitHub OAuth App](https://github.com/settings/developers)
    - Homepage URL: `https://vultr.seoul.kr`
    - Authorization callback URL: `https://vultr.seoul.kr/api/oauth/callback`
-3. Cloudflare Pages secrets
+2. Cloudflare Pages project `vultr` secrets
    - `GITHUB_CLIENT_ID`
    - `GITHUB_CLIENT_SECRET`
-4. `/admin`에서 Login with GitHub
-
-> Client Secret이 채팅·이슈에 노출됐다면 즉시 revoke 후 재발급하세요.
+3. `/admin`에서 Login with GitHub
 
 ## Cloudflare Pages + R2
 
-1. R2 버킷 생성: `vultr-media` (이름 바꾸면 `wrangler.toml`도 같이)
-2. Public access → `r2.dev` URL 발급
-3. 아래 세 곳에 **같은** public URL 넣기
-   - `wrangler.toml` → `R2_PUBLIC_BASE_URL`
-   - `public/admin/config.yml` → `media_library.config.public_base_url`
-   - `src/site.config.ts` → `mediaBaseUrl`
-4. Pages 프로젝트 연결
-   - Build command: `npm run build`
-   - Output directory: `dist`
-   - Node.js: `22` (engines) 또는 `20`
-   - 커스텀 도메인: `vultr.seoul.kr`
-5. Bindings → R2: `MEDIA_BUCKET` → `vultr-media`
-6. `functions/` 는 Pages가 자동 인식 (OAuth + upload)
-
-정적 이미지 시드:
-
-```bash
-BUCKET=vultr-media ./scripts/upload-r2.sh
-```
+- Pages project: `vultr` (GitHub `lab486486/vultr` 연결, push 시 자동 배포)
+- R2 bucket: `vultr-media` / binding `MEDIA_BUCKET`
+- Public URL (세 곳 동일):
+  - `wrangler.toml` → `R2_PUBLIC_BASE_URL`
+  - `public/admin/config.yml` → `media_library.config.public_base_url`
+  - `src/site.config.ts` → `mediaBaseUrl`
 
 ## 구조
 
