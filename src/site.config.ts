@@ -5,12 +5,12 @@ import siteData from './data/site.json';
  * Production images: mediaBaseUrl → R2 public URL (wrangler.toml R2_PUBLIC_BASE_URL)
  */
 export const site = {
-  name: 'V-press',
+  name: '호스팅가이드',
   title: siteData.title,
   description:
-    '처음부터 비싼 호스팅이 필요하지 않습니다. 워드프레스·공유호스팅·VPS를 비교하고 시작하는 V-press.',
+    '워드프레스 호스팅 비용과 웹호스팅 선택을 비교합니다. 무료 웹호스팅만 찾기보다, 월 수천 원대 공유호스팅으로 블로그를 시작하는 방법을 정리합니다.',
   baseUrl: siteData.site_url || 'https://vultr.seoul.kr',
-  copyrightName: siteData.copyright_name || 'V-press',
+  copyrightName: siteData.copyright_name || '호스팅가이드',
   chemicloudUrl:
     siteData.chemicloud_url ||
     'https://chemicloud.com/wordpress-hosting#a_aid=6818d638aa861&chan=code3',

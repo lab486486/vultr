@@ -10,6 +10,8 @@ interface Props {
   description?: string;
   canonical?: string;
   ogImage?: string;
+  /** When set, used as-is for <title> and og:title (skips `| site.title` suffix). */
+  documentTitle?: string;
 }
 
 const {
@@ -17,10 +19,13 @@ const {
   description = site.description,
   canonical,
   ogImage,
+  documentTitle,
 } = Astro.props;
 
 const pageUrl = canonical || new URL(Astro.url.pathname, site.baseUrl).toString();
-const fullTitle = title === site.name || title === site.title ? site.title : `${title} | ${site.title}`;
+const fullTitle =
+  documentTitle ||
+  (title === site.name || title === site.title ? site.title : `${title} | ${site.title}`);
 const pathname = Astro.url.pathname;
 const r2Origin = mediaOrigin();
 
@@ -75,7 +80,7 @@ const navItems = [
   <body>
     <header class="site-header">
       <div class="container nav">
-        <a class="brand" href="/">V&#8209;<span>press</span></a>
+        <a class="brand" href="/">{site.name}</a>
 
         <button
           class="nav-toggle"
