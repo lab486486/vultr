@@ -1,0 +1,40 @@
+/* Wider editor: Decap hides the pane when cms.preview-visible=false.
+   Make the remaining eye toggle a clear text button. */
+
+.cms-preview-btn {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 6px;
+  min-width: auto !important;
+  padding: 8px 14px !important;
+  border-radius: 8px !important;
+  background: #fff !important;
+  border: 1px solid #c4c7cf !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06) !important;
+  cursor: pointer;
+}
+
+.cms-preview-btn:hover {
+  border-color: #3a7bd5 !important;
+  background: #f5f9ff !important;
+}
+
+.cms-preview-btn-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+[class*="NoPreviewContainer"] {
+  max-width: none !important;
+  width: 100% !important;
+}
+
+[class*="NoPreviewContainer"] [class*="ControlPaneContainer"],
+[class*="NoPreviewContainer"] .Pane {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+}
