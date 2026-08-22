@@ -1,0 +1,74 @@
+/* Styles injected into Decap preview iframe — approximate live .prose article */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #12171c;
+  color: #e8eef4;
+  font-family: "IBM Plex Sans KR", "Apple SD Gothic Neo", sans-serif;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+body {
+  padding: 1.5rem 1.25rem 3rem;
+  max-width: 44rem;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  word-break: keep-all;
+}
+
+h1 {
+  font-size: 1.75rem;
+  margin: 0 0 1rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  margin: 2rem 0 0.75rem;
+}
+
+h3 {
+  font-size: 1.15rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+p,
+ul,
+ol {
+  color: #d5dee8;
+  margin: 0.75rem 0;
+}
+
+a {
+  color: #7eb6ff;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+}
+
+code {
+  font-size: 0.9em;
+  background: #1a222b;
+  padding: 0.1em 0.35em;
+  border-radius: 0.3rem;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: #0a0e12;
+  border: 1px solid #2a3440;
+}
