@@ -1,0 +1,26 @@
+/* Toast UI Editor inside Decap CMS control pane (~ live .prose width) */
+.toast-markdown-widget {
+  width: 100%;
+  max-width: 44rem;
+  margin: 0 auto;
+}
+
+.toast-markdown-widget .toastui-editor-defaultUI {
+  border-radius: 8px;
+  border-color: #c4c7cf;
+}
+
+.toast-markdown-widget .toastui-editor-defaultUI .toastui-editor-toolbar {
+  border-radius: 8px 8px 0 0;
+}
+
+.toast-markdown-widget .toastui-editor-contents {
+  font-size: 16px;
+  line-height: 1.7;
+  font-family: "IBM Plex Sans KR", "Apple SD Gothic Neo", sans-serif;
+}
+
+.toast-markdown-widget .toastui-editor-contents p,
+.toast-markdown-widget .toastui-editor-contents li {
+  color: #1e293b;
+}

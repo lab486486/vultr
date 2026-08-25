@@ -7,7 +7,9 @@
     <title>Content Manager | 호스팅가이드</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/3.2.2/toastui-editor.min.css" />
     <link rel="stylesheet" href="/admin/cms-preview-button.css" />
+    <link rel="stylesheet" href="/admin/toast-markdown-widget.css" />
     <script>
       window.CMS_MANUAL_INIT = true;
       (function () {
@@ -34,8 +36,11 @@
     <script src="/admin/cms-preview-button.js"></script>
   </head>
   <body>
+    <script src="https://uicdn.toast.com/editor/3.2.2/toastui-editor-all.min.js"></script>
+    <script src="https://uicdn.toast.com/editor/3.2.2/i18n/ko-kr.js"></script>
     <script src="https://unpkg.com/decap-cms@3.4.0/dist/decap-cms.js"></script>
     <script src="/admin/r2-media-library.js"></script>
+    <script src="/admin/toast-markdown-widget.js"></script>
     <script>
       CMS.registerMediaLibrary(window.R2MediaLibrary);
       CMS.registerPreviewStyle("/admin/cms-preview-content.css");

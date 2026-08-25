@@ -38,7 +38,7 @@ x-blog-fields: &blog_fields
   - { label: 커버 이미지, name: cover_image, widget: image, required: false }
   - label: 본문
     name: body
-    widget: markdown
+    widget: toast-markdown
 
 collections:
   - name: site
