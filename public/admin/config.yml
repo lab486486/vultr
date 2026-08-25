@@ -27,19 +27,26 @@ slug:
 
 x-blog-fields: &blog_fields
   - { label: 제목, name: title, widget: string }
+  - label: 날짜
+    name: date
+    widget: datetime
+    format: YYYY-MM-DD
+    date_format: YYYY-MM-DD
+    time_format: false
+    default: "{{now}}"
+    hint: "기본값은 오늘입니다. 클릭해서 바꿀 수 있습니다."
+  - { label: 설명, name: description, widget: text }
+  - { label: 커버 이미지, name: cover_image, widget: image, required: false }
+  - { label: 태그, name: tags, widget: list, default: ["호스팅"], required: false }
   - label: 퍼머링크 (슬러그)
     name: slug
     widget: string
     required: true
     hint: "글 URL입니다. 예: cheap-hosting-first → /guides/cheap-hosting-first/"
-  - { label: 날짜, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD, time_format: false }
-  - { label: 설명, name: description, widget: text }
-  - { label: 태그, name: tags, widget: list, default: ["호스팅"], required: false }
-  - { label: 커버 이미지, name: cover_image, widget: image, required: false }
   - label: 본문
     name: body
     widget: toast-markdown
-
+    height: 420px
 collections:
   - name: site
     label: 사이트 설정

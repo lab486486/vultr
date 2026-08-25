@@ -1,0 +1,132 @@
+/* Shared Decap blog form layout — from blogincome.kr
+ * 제목|날짜 6:4, 설명|커버 6:4, 태그/퍼머링크/본문 full width
+ */
+#nc-root [class*="EditorContainer"] {
+  background: #f4f6f8;
+}
+
+#nc-root [class*="NoPreviewContainer"],
+#nc-root [class*="ControlPaneContainer"] {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+#nc-root [class*="ControlPaneContainer"] {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 0 rgba(15, 39, 68, 0.04), 0 10px 28px rgba(15, 39, 68, 0.06);
+  padding-top: 1.25rem !important;
+  padding-bottom: 2rem !important;
+  margin-top: 1rem !important;
+  margin-bottom: 2rem !important;
+}
+
+#nc-root .cms-blog-form-layout {
+  display: grid !important;
+  grid-template-columns: repeat(10, minmax(0, 1fr)) !important;
+  column-gap: 1rem !important;
+  row-gap: 0.35rem !important;
+  align-items: stretch !important;
+}
+
+#nc-root .cms-blog-form-layout > * {
+  grid-column: 1 / -1 !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  width: auto !important;
+}
+
+#nc-root .cms-blog-form-layout > [data-cms-field="title"] {
+  grid-column: 1 / span 6 !important;
+}
+
+#nc-root .cms-blog-form-layout > [data-cms-field="date"] {
+  grid-column: 7 / span 4 !important;
+}
+
+#nc-root .cms-blog-form-layout > [data-cms-field="description"] {
+  grid-column: 1 / span 6 !important;
+}
+
+#nc-root .cms-blog-form-layout > [data-cms-field="cover_image"] {
+  grid-column: 7 / span 4 !important;
+}
+
+#nc-root .cms-blog-form-layout > [data-cms-field="tags"],
+#nc-root .cms-blog-form-layout > [data-cms-field="slug"],
+#nc-root .cms-blog-form-layout > [data-cms-field="body"] {
+  grid-column: 1 / -1 !important;
+}
+
+#nc-root .cms-blog-form-layout > [data-cms-field="date"] input,
+#nc-root .cms-blog-form-layout > [data-cms-field="date"] button {
+  font-size: 0.88rem !important;
+}
+
+#nc-root .cms-blog-form-layout > [data-cms-field="date"] [class*="DateTimeControl"],
+#nc-root .cms-blog-form-layout > [data-cms-field="date"] > div {
+  flex-wrap: wrap !important;
+}
+
+#nc-root .cms-blog-form-layout > [data-cms-field="description"],
+#nc-root .cms-blog-form-layout > [data-cms-field="cover_image"] {
+  display: flex !important;
+  flex-direction: column !important;
+  align-self: stretch !important;
+}
+
+#nc-root .cms-blog-form-layout > [data-cms-field="description"] > *:last-child,
+#nc-root .cms-blog-form-layout > [data-cms-field="cover_image"] > *:last-child {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 148px !important;
+}
+
+#nc-root .cms-blog-form-layout > [data-cms-field="description"] textarea {
+  flex: 1 1 auto !important;
+  min-height: 148px !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+  resize: vertical !important;
+}
+
+#nc-root .cms-blog-form-layout > [data-cms-field="cover_image"] [class*="ImageField"],
+#nc-root .cms-blog-form-layout > [data-cms-field="cover_image"] [class*="image-card"],
+#nc-root .cms-blog-form-layout > [data-cms-field="cover_image"] > *:last-child > * {
+  flex: 1 1 auto !important;
+  min-height: 148px !important;
+  box-sizing: border-box !important;
+}
+
+#nc-root .cms-blog-form-layout > [data-cms-field="cover_image"] img {
+  max-height: 180px !important;
+  width: 100% !important;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Toast UI: prefer wide over tall */
+.cms-tui-editor-wrap,
+.toast-markdown-widget,
+.toast-ui-cms-wrap,
+[class*="tui-editor"],
+[class*="toast-markdown"] {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+@media (max-width: 900px) {
+  #nc-root .cms-blog-form-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  #nc-root .cms-blog-form-layout > [data-cms-field] {
+    grid-column: 1 / -1 !important;
+  }
+}
