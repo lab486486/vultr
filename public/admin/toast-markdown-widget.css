@@ -3,6 +3,14 @@
   width: 100%;
   max-width: 44rem;
   margin: 0 auto;
+  min-height: calc(100vh - 220px);
+}
+
+.toast-markdown-widget .toastui-editor-defaultUI,
+.toast-markdown-widget .toastui-editor-main,
+.toast-markdown-widget .toastui-editor-ww-container,
+.toast-markdown-widget .toastui-editor-md-container {
+  min-height: inherit;
 }
 
 .toast-markdown-widget .toastui-editor-defaultUI {

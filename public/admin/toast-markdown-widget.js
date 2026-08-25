@@ -119,12 +119,14 @@
 
       var self = this;
       var initial = typeof this.props.value === "string" ? this.props.value : "";
+      var editorHeight = Math.max(560, window.innerHeight - 220) + "px";
 
       this._updatingFromEditor = false;
       this.editor = new EditorCtor({
         el: this._el,
-        height: "640px",
-        minHeight: "420px",
+        // Tall writing surface; horizontal prose width stays ~44rem via CSS.
+        height: editorHeight,
+        minHeight: "560px",
         initialValue: initial,
         initialEditType: "wysiwyg",
         previewStyle: "tab",
