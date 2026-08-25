@@ -1,14 +1,14 @@
 /*
   Writing UX for Decap CMS:
-  - Editor column ≈ live article .prose width (44rem)
+  - Writing pane uses most of the horizontal viewport (not a narrow prose column)
   - Side-by-side preview stays off by default
   - When preview is on, show it as a centered popup over a backdrop
 */
 
-/* --- Editor width matches published body (.prose { max-width: 44rem }) --- */
+/* --- Wide editor: use remaining horizontal space --- */
 #nc-root [class*="NoPreviewContainer"],
 #nc-root [class*="ControlPaneContainer"] {
-  max-width: 44rem !important;
+  max-width: min(100% - 2rem, 90rem) !important;
   width: 100% !important;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -25,7 +25,7 @@
   padding-right: 1rem !important;
 }
 
-/* Keep markdown / text inputs from stretching beyond the prose column */
+/* Keep field controls from overflowing the wide pane */
 #nc-root [class*="ControlPaneContainer"] textarea,
 #nc-root [class*="ControlPaneContainer"] input[type="text"],
 #nc-root [class*="ControlPaneContainer"] [contenteditable="true"],
@@ -74,7 +74,7 @@ html.cms-preview-popup #nc-root .SplitPane {
 html.cms-preview-popup #nc-root [class*="StyledSplitPane"] > .Pane:first-child,
 html.cms-preview-popup #nc-root .SplitPane > .Pane:first-child {
   width: 100% !important;
-  max-width: 44rem !important;
+  max-width: min(100% - 2rem, 90rem) !important;
   margin-left: auto !important;
   margin-right: auto !important;
   height: 100% !important;

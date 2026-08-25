@@ -1,16 +1,8 @@
-/* Toast UI Editor inside Decap CMS control pane (~ live .prose width) */
+/* Toast UI Editor: full width of the CMS writing pane */
 .toast-markdown-widget {
   width: 100%;
-  max-width: 44rem;
-  margin: 0 auto;
-  min-height: calc(100vh - 220px);
-}
-
-.toast-markdown-widget .toastui-editor-defaultUI,
-.toast-markdown-widget .toastui-editor-main,
-.toast-markdown-widget .toastui-editor-ww-container,
-.toast-markdown-widget .toastui-editor-md-container {
-  min-height: inherit;
+  max-width: none;
+  margin: 0;
 }
 
 .toast-markdown-widget .toastui-editor-defaultUI {

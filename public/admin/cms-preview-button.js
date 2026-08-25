@@ -1,7 +1,7 @@
 /**
  * Decap CMS writing UX:
  * - Keep split preview off by default (full writing focus)
- * - Constrain editor width to match live .prose (44rem) via CSS
+ * - Writing pane uses most of the horizontal viewport
  * - "미리보기" button opens Decap preview as a centered popup, not a side pane
  */
 (function () {
