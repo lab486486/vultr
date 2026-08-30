@@ -6,12 +6,18 @@
     <meta name="robots" content="noindex" />
     <title>Content Manager | 호스팅가이드</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="stylesheet"
+      href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css"
+    />
+    <link href="/admin/cms-tui-editor.css?v=1" rel="stylesheet" />
+    <link href="/admin/cms-blog-form-layout.css?v=2" rel="stylesheet" />
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
-    <link rel="stylesheet" href="https://uicdn.toast.com/editor/3.2.2/toastui-editor.min.css" />
-    <link rel="stylesheet" href="/admin/cms-preview-button.css" />
-    <link rel="stylesheet" href="/admin/toast-markdown-widget.css" />
     <script>
       window.CMS_MANUAL_INIT = true;
+      try {
+        localStorage.setItem("cms.preview-visible", "false");
+      } catch (e) {}
       (function () {
         if (window.__decapDomPatch) return;
         window.__decapDomPatch = true;
@@ -33,20 +39,20 @@
         };
       })();
     </script>
-    <script src="/admin/cms-preview-button.js"></script>
-      <link href="/admin/cms-blog-form-layout.css?v=1" rel="stylesheet" />
   </head>
   <body>
-    <script src="https://uicdn.toast.com/editor/3.2.2/toastui-editor-all.min.js"></script>
-    <script src="https://uicdn.toast.com/editor/3.2.2/i18n/ko-kr.js"></script>
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
+    <script src="https://uicdn.toast.com/editor/latest/i18n/ko-kr.min.js"></script>
     <script src="https://unpkg.com/decap-cms@3.4.0/dist/decap-cms.js"></script>
     <script src="/admin/r2-media-library.js"></script>
-    <script src="/admin/toast-markdown-widget.js"></script>
+    <script src="/admin/cms-tui-editor.js?v=1"></script>
     <script>
       CMS.registerMediaLibrary(window.R2MediaLibrary);
+      CMS.registerWidget("tui-markdown", window.TuiMarkdownControl, window.TuiMarkdownPreview);
       CMS.registerPreviewStyle("/admin/cms-preview-content.css");
       CMS.init();
     </script>
-      <script src="/admin/cms-blog-form-layout.js?v=1"></script>
+    <script src="/admin/cms-preview-default.js?v=1"></script>
+    <script src="/admin/cms-blog-form-layout.js?v=2"></script>
   </body>
 </html>

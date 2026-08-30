@@ -1,0 +1,58 @@
+/* Toast UI Editor inside Decap CMS — wider writing surface */
+.cms-tui-editor-wrap {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0.35rem 0 1rem;
+}
+
+.cms-tui-editor {
+  width: 100%;
+  min-height: 320px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.cms-tui-editor-error {
+  margin: 0 0 0.75rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  background: #fdecea;
+  color: #8f1f16;
+  font-size: 0.92rem;
+}
+
+.cms-tui-editor-wrap .toastui-editor-defaultUI {
+  border: 1px solid #c9cccf !important;
+  border-radius: 8px !important;
+}
+
+.cms-tui-editor-wrap .toastui-editor-defaultUI-toolbar {
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.cms-tui-editor-wrap .toastui-editor-contents,
+.cms-tui-editor-wrap .toastui-editor-ww-container .ProseMirror,
+.cms-tui-editor-wrap .toastui-editor-md-container .CodeMirror {
+  font-size: 1.05rem !important;
+  line-height: 1.65 !important;
+  font-family:
+    "Pretendard",
+    "Apple SD Gothic Neo",
+    "Noto Sans KR",
+    system-ui,
+    sans-serif !important;
+}
+
+/* Decap ControlPane already sets width — keep editor full-bleed inside */
+#nc-root [class*="ControlPaneContainer"] .cms-tui-editor-wrap {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: none;
+}
+
+@media (max-width: 720px) {
+  .cms-tui-editor {
+    min-height: 280px;
+  }
+}

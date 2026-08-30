@@ -45,8 +45,12 @@ x-blog-fields: &blog_fields
     hint: "글 URL입니다. 예: cheap-hosting-first → /guides/cheap-hosting-first/"
   - label: 본문
     name: body
-    widget: toast-markdown
+    widget: tui-markdown
+    hint: "Toast UI 에디터로 작성합니다."
     height: 420px
+    initial_edit_type: wysiwyg
+    preview_style: tab
+
 collections:
   - name: site
     label: 사이트 설정

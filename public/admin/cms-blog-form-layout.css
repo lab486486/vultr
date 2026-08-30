@@ -1,4 +1,4 @@
-/* Shared Decap blog form layout — from blogincome.kr
+/* Shared Decap blog form layout — aligned with blogincome
  * 제목|날짜 6:4, 설명|커버 6:4, 태그/퍼머링크/본문 full width
  */
 #nc-root [class*="EditorContainer"] {
@@ -111,14 +111,152 @@
   border-radius: 6px;
 }
 
-/* Toast UI: prefer wide over tall */
-.cms-tui-editor-wrap,
-.toast-markdown-widget,
-.toast-ui-cms-wrap,
-[class*="tui-editor"],
-[class*="toast-markdown"] {
+#nc-root [class*="ControlPaneContainer"] textarea,
+#nc-root [class*="ControlPaneContainer"] .CodeMirror,
+#nc-root [class*="ControlPaneContainer"] [class*="RawEditor"] {
+  font-size: 1.05rem !important;
+  line-height: 1.65 !important;
+}
+
+#nc-root [class*="ToolbarContainer"],
+#nc-root [class*="EditorControlBar"],
+#nc-root [class*="ViewControls"] {
+  max-width: none !important;
+}
+
+/* Preview toggle button */
+#nc-root button.cms-preview-toggle-btn,
+#nc-root [role="button"].cms-preview-toggle-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  min-height: 34px !important;
+  padding: 6px 12px !important;
+  border: 1px solid #c9cccf !important;
+  border-radius: 6px !important;
+  background: #fff !important;
+  color: #31343d !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  cursor: pointer !important;
+}
+
+#nc-root button.cms-preview-toggle-btn:hover,
+#nc-root [role="button"].cms-preview-toggle-btn:hover {
+  background: #f3f5f9 !important;
+  border-color: #9aa0a6 !important;
+  color: #1565c0 !important;
+}
+
+#nc-root button.cms-preview-toggle-btn[aria-pressed="true"],
+#nc-root button.cms-preview-toggle-btn[class*="active"],
+#nc-root [role="button"].cms-preview-toggle-btn[aria-pressed="true"] {
+  background: #e8f0fe !important;
+  border-color: #1a73e8 !important;
+  color: #174ea6 !important;
+}
+
+#nc-root .cms-preview-toggle-label {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Preview as modal popup (not side-by-side) */
+.cms-preview-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: rgba(15, 39, 68, 0.55);
+}
+
+html.cms-preview-modal-open .cms-preview-backdrop {
+  display: block;
+}
+
+.cms-preview-close {
+  display: none;
+  position: fixed;
+  top: 1.1rem;
+  right: 1.1rem;
+  z-index: 9003;
+  min-height: 2.4rem;
+  padding: 0.45rem 0.95rem;
+  border: 0;
+  border-radius: 999px;
+  background: #111827;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+html.cms-preview-modal-open .cms-preview-close {
+  display: inline-flex;
+  align-items: center;
+}
+
+html.cms-preview-modal-open #nc-root .SplitPane,
+html.cms-preview-modal-open #nc-root [class*="StyledSplitPane"] {
+  display: block !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+html.cms-preview-modal-open #nc-root .SplitPane > .Pane,
+html.cms-preview-modal-open #nc-root .SplitPane > .Pane1,
+html.cms-preview-modal-open #nc-root .SplitPane > .Pane2,
+html.cms-preview-modal-open #nc-root [class*="StyledSplitPane"] > div {
+  position: static !important;
   width: 100% !important;
   max-width: none !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+html.cms-preview-modal-open #nc-root .SplitPane > .Resizer,
+html.cms-preview-modal-open #nc-root [class*="StyledSplitPane"] > .Resizer {
+  display: none !important;
+}
+
+html.cms-preview-modal-open #nc-root [class*="PreviewPaneContainer"],
+html.cms-preview-modal-open #nc-root .SplitPane > .Pane2,
+html.cms-preview-modal-open #nc-root .SplitPane > .Pane:last-child {
+  position: fixed !important;
+  z-index: 9002 !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: min(72rem, calc(100vw - 1.5rem)) !important;
+  max-width: calc(100vw - 1.5rem) !important;
+  height: min(88vh, 920px) !important;
+  max-height: 88vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  border-radius: 12px !important;
+  background: #fff !important;
+  box-shadow: 0 24px 60px rgba(15, 39, 68, 0.35) !important;
+}
+
+html.cms-preview-modal-open #nc-root [class*="PreviewPaneFrame"],
+html.cms-preview-modal-open #nc-root [class*="PreviewPaneContainer"] iframe {
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  display: block !important;
+  background: #fff !important;
+}
+
+html.cms-preview-modal-open #nc-root [class*="ControlPaneContainer"],
+html.cms-preview-modal-open #nc-root .SplitPane > .Pane1,
+html.cms-preview-modal-open #nc-root .SplitPane > .Pane:first-child {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 @media (max-width: 900px) {
@@ -128,5 +266,24 @@
 
   #nc-root .cms-blog-form-layout > [data-cms-field] {
     grid-column: 1 / -1 !important;
+  }
+}
+
+@media (max-width: 720px) {
+  html.cms-preview-modal-open #nc-root [class*="PreviewPaneContainer"],
+  html.cms-preview-modal-open #nc-root .SplitPane > .Pane2,
+  html.cms-preview-modal-open #nc-root .SplitPane > .Pane:last-child {
+    width: calc(100vw - 1rem) !important;
+    height: calc(100vh - 4.5rem) !important;
+    top: auto !important;
+    bottom: 0.5rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    border-radius: 12px 12px 8px 8px !important;
+  }
+
+  .cms-preview-close {
+    top: 0.65rem;
+    right: 0.65rem;
   }
 }
