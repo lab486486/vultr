@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="230" height="230" viewBox="0 0 230 230" role="img" aria-label="Coupang">
+  <rect width="230" height="230" rx="12" fill="#f3f4f6"/>
+  <rect x="55" y="55" width="120" height="90" rx="8" fill="#e5e7eb"/>
+  <circle cx="90" cy="88" r="12" fill="#d1d5db"/>
+  <path d="M70 130l28-28 22 22 18-18 32 32H70z" fill="#d1d5db"/>
+  <text x="115" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#9ca3af">COUPANG</text>
+</svg>

@@ -1,5 +1,105 @@
-/* Shared Decap blog form layout — aligned with blogincome
- * 제목|날짜 6:4, 설명|커버 6:4, 태그/퍼머링크/본문 full width
+/* Ported from hometax admin-custom.css — Decap writing UX */
+/* Hide Decap's native eye preview control — proxied under the body editor */
+#nc-root button.cms-preview-native-hidden,
+#nc-root [role="button"].cms-preview-native-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Body editor action bar: 미리보기 | 발행 (right-aligned) */
+#nc-root .cms-editor-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 12px 0 8px !important;
+  padding: 0 !important;
+}
+
+#nc-root .cms-editor-action-sep {
+  color: #c5cad3;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1;
+  user-select: none;
+}
+
+#nc-root .cms-editor-action-btn {
+  display: inline-block !important;
+  box-sizing: border-box !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  margin: 0 !important;
+  padding: 0 16px !important;
+  border: 0 !important;
+  border-radius: 5px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+  vertical-align: middle !important;
+}
+
+#nc-root .cms-editor-action-preview {
+  background: #1e3a5f !important;
+  color: #fff !important;
+}
+
+#nc-root .cms-editor-action-preview:hover {
+  background: #162e4d !important;
+}
+
+#nc-root .cms-editor-action-preview[aria-pressed="true"],
+#nc-root .cms-editor-action-preview.is-active {
+  background: #0f2744 !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+#nc-root .cms-editor-action-publish {
+  background: #17a2b8 !important;
+  color: #fff !important;
+}
+
+#nc-root .cms-editor-action-publish:hover {
+  background: #138496 !important;
+}
+
+#nc-root .cms-editor-action-delete {
+  background: #c62828 !important;
+  color: #fff !important;
+}
+
+#nc-root .cms-editor-action-delete:hover {
+  background: #b71c1c !important;
+}
+
+/* Hide duplicate top Publish / Delete — actions live under the body editor */
+#nc-root [class*="EditorToolbar"] [class*="PublishButton"],
+#nc-root [class*="EditorToolbar"] [class*="ToolbarDropdown"]:has([class*="PublishButton"]),
+#nc-root [class*="EditorToolbar"] [class*="DeleteButton"] {
+  display: none !important;
+}
+
+/* Legacy class kept for safety if any leftover markup remains */
+#nc-root button.cms-preview-toggle-btn,
+#nc-root [role="button"].cms-preview-toggle-btn {
+  display: none !important;
+}
+
+/*
+ * Writing column: use nearly full viewport width.
+ * Toast UI feels better wide than tall.
  */
 #nc-root [class*="EditorContainer"] {
   background: #f4f6f8;
@@ -26,6 +126,7 @@
   margin-bottom: 2rem !important;
 }
 
+/* Blog meta fields: compact 2-column rows (6:4) */
 #nc-root .cms-blog-form-layout {
   display: grid !important;
   grid-template-columns: repeat(10, minmax(0, 1fr)) !important;
@@ -41,14 +142,19 @@
   width: auto !important;
 }
 
+/* Row 1: 제목 | 날짜 */
 #nc-root .cms-blog-form-layout > [data-cms-field="title"] {
   grid-column: 1 / span 6 !important;
 }
 
 #nc-root .cms-blog-form-layout > [data-cms-field="date"] {
   grid-column: 7 / span 4 !important;
+  align-self: start !important;
+  overflow: visible !important;
+  min-height: 0 !important;
 }
 
+/* Row 2: 디스크립션 | 커버 이미지 */
 #nc-root .cms-blog-form-layout > [data-cms-field="description"] {
   grid-column: 1 / span 6 !important;
 }
@@ -57,12 +163,14 @@
   grid-column: 7 / span 4 !important;
 }
 
+/* Tags + slug + body: full width */
 #nc-root .cms-blog-form-layout > [data-cms-field="tags"],
 #nc-root .cms-blog-form-layout > [data-cms-field="slug"],
 #nc-root .cms-blog-form-layout > [data-cms-field="body"] {
   grid-column: 1 / -1 !important;
 }
 
+/* Keep date controls usable — avoid stretch/clip that hides the input */
 #nc-root .cms-blog-form-layout > [data-cms-field="date"] input,
 #nc-root .cms-blog-form-layout > [data-cms-field="date"] button {
   font-size: 0.88rem !important;
@@ -71,8 +179,11 @@
 #nc-root .cms-blog-form-layout > [data-cms-field="date"] [class*="DateTimeControl"],
 #nc-root .cms-blog-form-layout > [data-cms-field="date"] > div {
   flex-wrap: wrap !important;
+  overflow: visible !important;
+  min-height: auto !important;
 }
 
+/* Description + cover share the same row height */
 #nc-root .cms-blog-form-layout > [data-cms-field="description"],
 #nc-root .cms-blog-form-layout > [data-cms-field="cover_image"] {
   display: flex !important;
@@ -111,6 +222,79 @@
   border-radius: 6px;
 }
 
+/* Tags: hide Decap hint (custom hint rendered under suggestions) */
+#nc-root .cms-blog-form-layout > [data-cms-field="tags"] [class*="ControlHints"],
+#nc-root [data-cms-field="tags"] [class*="ControlHints"] {
+  display: none !important;
+}
+
+#nc-root .cms-tag-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #31343d;
+}
+
+#nc-root .cms-tag-suggestions-label {
+  flex: 0 0 auto;
+  color: #5d626f;
+  font-weight: 600;
+}
+
+#nc-root .cms-tag-suggestions-links {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+}
+
+#nc-root .cms-tag-suggestion-link {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #1e3a5f;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+#nc-root .cms-tag-suggestion-link:hover {
+  color: #0f2744;
+}
+
+#nc-root .cms-tag-suggestion-link.is-selected {
+  color: #9ca3af;
+  text-decoration: none;
+  cursor: default;
+}
+
+#nc-root .cms-tag-hint {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #74757a;
+}
+
+@media (max-width: 900px) {
+  #nc-root .cms-blog-form-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  #nc-root .cms-blog-form-layout > [data-cms-field] {
+    grid-column: 1 / -1 !important;
+  }
+}
+
+/* Markdown / text fields: slightly closer to site body size */
 #nc-root [class*="ControlPaneContainer"] textarea,
 #nc-root [class*="ControlPaneContainer"] .CodeMirror,
 #nc-root [class*="ControlPaneContainer"] [class*="RawEditor"] {
@@ -118,51 +302,14 @@
   line-height: 1.65 !important;
 }
 
+/* Keep toolbar full-bleed; only the form column is constrained */
 #nc-root [class*="ToolbarContainer"],
 #nc-root [class*="EditorControlBar"],
 #nc-root [class*="ViewControls"] {
   max-width: none !important;
 }
 
-/* Preview toggle button */
-#nc-root button.cms-preview-toggle-btn,
-#nc-root [role="button"].cms-preview-toggle-btn {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-  min-height: 34px !important;
-  padding: 6px 12px !important;
-  border: 1px solid #c9cccf !important;
-  border-radius: 6px !important;
-  background: #fff !important;
-  color: #31343d !important;
-  font-size: 13px !important;
-  font-weight: 600 !important;
-  line-height: 1.2 !important;
-  cursor: pointer !important;
-}
-
-#nc-root button.cms-preview-toggle-btn:hover,
-#nc-root [role="button"].cms-preview-toggle-btn:hover {
-  background: #f3f5f9 !important;
-  border-color: #9aa0a6 !important;
-  color: #1565c0 !important;
-}
-
-#nc-root button.cms-preview-toggle-btn[aria-pressed="true"],
-#nc-root button.cms-preview-toggle-btn[class*="active"],
-#nc-root [role="button"].cms-preview-toggle-btn[aria-pressed="true"] {
-  background: #e8f0fe !important;
-  border-color: #1a73e8 !important;
-  color: #174ea6 !important;
-}
-
-#nc-root .cms-preview-toggle-label {
-  display: inline-block;
-  white-space: nowrap;
-}
-
-/* Preview as modal popup (not side-by-side) */
+/* —— Preview as modal popup (not side-by-side) —— */
 .cms-preview-backdrop {
   display: none;
   position: fixed;
@@ -250,6 +397,7 @@ html.cms-preview-modal-open #nc-root [class*="PreviewPaneContainer"] iframe {
   background: #fff !important;
 }
 
+/* While modal is open, keep the editor column readable underneath */
 html.cms-preview-modal-open #nc-root [class*="ControlPaneContainer"],
 html.cms-preview-modal-open #nc-root .SplitPane > .Pane1,
 html.cms-preview-modal-open #nc-root .SplitPane > .Pane:first-child {
@@ -257,16 +405,6 @@ html.cms-preview-modal-open #nc-root .SplitPane > .Pane:first-child {
   max-width: none !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
-}
-
-@media (max-width: 900px) {
-  #nc-root .cms-blog-form-layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  #nc-root .cms-blog-form-layout > [data-cms-field] {
-    grid-column: 1 / -1 !important;
-  }
 }
 
 @media (max-width: 720px) {

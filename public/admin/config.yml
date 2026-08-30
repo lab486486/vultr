@@ -34,10 +34,9 @@ x-blog-fields: &blog_fields
     date_format: YYYY-MM-DD
     time_format: false
     default: "{{now}}"
-    hint: "기본값은 오늘입니다. 클릭해서 바꿀 수 있습니다."
-  - { label: 설명, name: description, widget: text }
+  - { label: 디스크립션, name: description, widget: text }
   - { label: 커버 이미지, name: cover_image, widget: image, required: false }
-  - { label: 태그, name: tags, widget: list, default: ["호스팅"], required: false }
+  - { label: 카테고리, name: tags, widget: list, default: ["호스팅"], required: false }
   - label: 퍼머링크 (슬러그)
     name: slug
     widget: string
@@ -46,7 +45,6 @@ x-blog-fields: &blog_fields
   - label: 본문
     name: body
     widget: tui-markdown
-    hint: "Toast UI 에디터로 작성합니다."
     height: 420px
     initial_edit_type: wysiwyg
     preview_style: tab

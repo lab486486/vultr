@@ -2,7 +2,7 @@
  * Blog entry form layout for Decap CMS.
  * Tags each field ControlContainer via FieldLabel text, then CSS grids:
  *   제목 | 날짜 (6:4)
- *   설명 | 커버 (6:4, same height)
+ *   디스크립션 | 커버 (6:4, same height)
  *   태그 / 퍼머링크 / 본문 full width
  */
 (function () {
@@ -12,7 +12,7 @@
     { re: /^퍼머링크/, name: "slug" },
     { re: /^커버/, name: "cover_image" },
     { re: /^태그|^카테고리/, name: "tags" },
-    { re: /^설명/, name: "description" },
+    { re: /^디스크립션|^설명/, name: "description" },
     { re: /^본문/, name: "body" },
   ];
 
@@ -59,7 +59,6 @@
 
     if (tagged.length < 4) return;
 
-    // Prefer the shared parent of title + date (true row siblings).
     var title = root.querySelector('[data-cms-field="title"]');
     var date = root.querySelector('[data-cms-field="date"]');
     var description = root.querySelector('[data-cms-field="description"]');
@@ -86,7 +85,6 @@
 
     if (!(pane instanceof HTMLElement)) return;
 
-    // Ensure the main meta fields are direct children of the grid pane.
     var childNames = {};
     Array.prototype.forEach.call(pane.children, function (child) {
       if (child instanceof HTMLElement && child.dataset.cmsField) {
