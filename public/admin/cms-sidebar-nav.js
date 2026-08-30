@@ -1,41 +1,36 @@
 /**
- * Decap sidebar order + dividers for vultr admin:
+ * Decap sidebar visual order + section dividers (vultr).
+ *
+ * IMPORTANT: Do not move React-managed collection <a> nodes — that breaks
+ * Decap routing/clicks. Use flex `order` + border dividers instead.
+ *
  *   사이트 설정
  *   ──
- *   애드센스 / 쿠팡파트너스 (수익)
+ *   애드센스 / 쿠팡파트너스
  *   ──
  *   기존 글 목록 / 새 글쓰기
  */
 (function () {
-  var DIVIDER_ATTR = "data-cms-sidebar-divider";
+  var MARK = "data-cms-sidebar-ordered";
 
   function getRoot() {
     return document.getElementById("nc-root");
   }
 
   function getSidebar(root) {
-    return root.querySelector("aside") || root.querySelector('[class*="Sidebar"]');
+    return root.querySelector("aside") || root.querySelector('[class*="SidebarNav"]') ||
+      root.querySelector('[class*="Sidebar"]');
   }
 
-  function collectionHref(el) {
+  function hrefOf(el) {
     return (el.getAttribute("href") || "").split("?")[0];
   }
 
   function isExactCollection(href, name) {
-    return (
-      href === "#/collections/" + name ||
-      href === "#/collections/" + name + "/"
-    );
+    return href === "#/collections/" + name || href === "#/collections/" + name + "/";
   }
 
-  /** Prefer the list-item wrapper so Decap layout stays intact. */
-  function rowFor(link) {
-    if (!link) return null;
-    var li = link.closest("li");
-    return li || link;
-  }
-
-  function findRows(sidebar) {
+  function findLinks(sidebar) {
     var all = Array.prototype.slice.call(
       sidebar.querySelectorAll('a[href^="#/collections/"], a.cms-coupang-nav'),
     );
@@ -48,97 +43,119 @@
     };
 
     all.forEach(function (link) {
+      // Skip entry deep-links in case they appear in nav chrome
+      var href = hrefOf(link);
+      if (href.indexOf("/entries/") !== -1) return;
+
       if (link.classList.contains("cms-coupang-nav")) {
-        byKey.coupang = rowFor(link);
+        byKey.coupang = link;
         return;
       }
-      var href = collectionHref(link);
-      if (isExactCollection(href, "site")) byKey.site = rowFor(link);
-      else if (isExactCollection(href, "adsense")) byKey.adsense = rowFor(link);
-      else if (isExactCollection(href, "blog_new")) byKey.blog_new = rowFor(link);
-      else if (isExactCollection(href, "blog")) byKey.blog = rowFor(link);
+      if (isExactCollection(href, "site")) byKey.site = link;
+      else if (isExactCollection(href, "adsense")) byKey.adsense = link;
+      else if (isExactCollection(href, "blog_new")) byKey.blog_new = link;
+      else if (isExactCollection(href, "blog")) byKey.blog = link;
     });
 
     return byKey;
   }
 
-  function ensureDivider(id) {
-    var el = document.querySelector("[" + DIVIDER_ATTR + '="' + id + '"]');
-    if (el) return el;
-    el = document.createElement("div");
-    el.className = "cms-sidebar-divider";
-    el.setAttribute(DIVIDER_ATTR, id);
-    el.setAttribute("role", "separator");
-    el.setAttribute("aria-hidden", "true");
-    return el;
+  function rowFor(link) {
+    if (!link) return null;
+    return link.closest("li") || link;
   }
 
-  function parentList(rows) {
-    var sample =
-      rows.site ||
-      rows.adsense ||
-      rows.blog ||
-      rows.blog_new ||
-      rows.coupang;
-    return sample && sample.parentElement ? sample.parentElement : null;
+  function clearSectionClasses(sidebar) {
+    sidebar.querySelectorAll(".cms-nav-section-start").forEach(function (el) {
+      el.classList.remove("cms-nav-section-start");
+    });
   }
 
-  function reorder(sidebar) {
-    var rows = findRows(sidebar);
-    var parent = parentList(rows);
-    if (!parent) return;
+  function applyOrder(sidebar) {
+    var links = findLinks(sidebar);
+    var rows = {
+      site: rowFor(links.site),
+      adsense: rowFor(links.adsense),
+      coupang: rowFor(links.coupang),
+      blog: rowFor(links.blog),
+      blog_new: rowFor(links.blog_new),
+    };
 
-    var ordered = [];
-    if (rows.site) ordered.push(rows.site);
-    ordered.push(ensureDivider("after-site"));
-    if (rows.adsense) ordered.push(rows.adsense);
-    if (rows.coupang) ordered.push(rows.coupang);
-    ordered.push(ensureDivider("after-monetize"));
-    if (rows.blog) ordered.push(rows.blog);
-    if (rows.blog_new) ordered.push(rows.blog_new);
-    if (ordered.length < 2) return;
+    var sample = rows.site || rows.adsense || rows.blog || rows.blog_new || rows.coupang;
+    if (!sample || !sample.parentElement) return false;
 
-    var children = Array.prototype.slice.call(parent.children);
-    var anchorPrev = null;
-    for (var i = 0; i < children.length; i++) {
-      if (ordered.indexOf(children[i]) === -1) continue;
-      anchorPrev = i > 0 ? children[i - 1] : null;
-      while (anchorPrev && ordered.indexOf(anchorPrev) !== -1) {
-        var idx = children.indexOf(anchorPrev);
-        anchorPrev = idx > 0 ? children[idx - 1] : null;
-      }
-      break;
-    }
+    var parent = sample.parentElement;
+    parent.classList.add("cms-sidebar-nav-list");
+    parent.setAttribute(MARK, "1");
 
-    var frag = document.createDocumentFragment();
-    ordered.forEach(function (node) {
-      frag.appendChild(node);
+    // Flex order — keep DOM ownership with React
+    var orderMap = [
+      [rows.site, 10],
+      [rows.adsense, 30],
+      [rows.coupang, 40],
+      [rows.blog, 60],
+      [rows.blog_new, 70],
+    ];
+
+    orderMap.forEach(function (pair) {
+      var node = pair[0];
+      var order = pair[1];
+      if (!node) return;
+      node.style.order = String(order);
     });
 
-    if (anchorPrev && anchorPrev.parentNode === parent) {
-      parent.insertBefore(frag, anchorPrev.nextSibling);
-    } else {
-      parent.insertBefore(frag, parent.firstChild);
-    }
+    clearSectionClasses(sidebar);
+
+    // Visual dividers via border on first item of each following section
+    var monetizeStart = rows.adsense || rows.coupang;
+    var postsStart = rows.blog || rows.blog_new;
+    if (monetizeStart) monetizeStart.classList.add("cms-nav-section-start");
+    if (postsStart) postsStart.classList.add("cms-nav-section-start");
+
+    return true;
   }
 
   var pending = false;
+  var lastSig = "";
+
+  function signature(sidebar) {
+    var links = findLinks(sidebar);
+    return [
+      links.site ? "1" : "0",
+      links.adsense ? "1" : "0",
+      links.coupang ? "1" : "0",
+      links.blog ? "1" : "0",
+      links.blog_new ? "1" : "0",
+    ].join("");
+  }
+
+  function sync() {
+    var root = getRoot();
+    if (!root) return;
+    var sidebar = getSidebar(root);
+    if (!sidebar) return;
+
+    var sig = signature(sidebar);
+    // Still re-apply order classes cheaply; avoid work if nav not ready
+    if (sig === "00000") return;
+    if (sig === lastSig && sidebar.querySelector(".cms-sidebar-nav-list[" + MARK + "]")) {
+      return;
+    }
+    if (applyOrder(sidebar)) lastSig = sig;
+  }
+
   function schedule() {
     if (pending) return;
     pending = true;
     window.requestAnimationFrame(function () {
       pending = false;
-      var root = getRoot();
-      if (!root) return;
-      var sidebar = getSidebar(root);
-      if (!sidebar) return;
-      reorder(sidebar);
+      sync();
     });
   }
 
   function start() {
     var root = getRoot();
-    if (!root) {
+    if (!root || !root.firstElementChild) {
       window.requestAnimationFrame(start);
       return;
     }
