@@ -425,3 +425,22 @@ html.cms-preview-modal-open #nc-root .SplitPane > .Pane:first-child {
     right: 0.65rem;
   }
 }
+
+/* Sidebar section dividers */
+#nc-root aside .cms-sidebar-divider,
+#nc-root [class*="Sidebar"] .cms-sidebar-divider,
+.cms-sidebar-divider {
+  display: block;
+  height: 0;
+  margin: 12px 14px;
+  border: 0;
+  border-top: 1px solid rgba(15, 39, 68, 0.14);
+  pointer-events: none;
+}
+
+#nc-root aside li.cms-sidebar-divider,
+#nc-root [class*="Sidebar"] li.cms-sidebar-divider {
+  list-style: none;
+  margin: 10px 0;
+  padding: 0;
+}
